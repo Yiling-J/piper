@@ -1,0 +1,8 @@
+pp_imports:
+  - base.yaml
+  - foo.yaml
+  - bar.yaml
+  - qux.yaml
+foo: test
+foobar:
+  foo: test

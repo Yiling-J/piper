@@ -1,0 +1,6 @@
+pp_imports = ["foo.toml"]
+
+foofoo = "k"
+
+[quux]
+foo = "j"

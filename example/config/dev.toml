@@ -1,0 +1,16 @@
+pp_imports = ["build.toml", "cache.toml", "config.toml"]
+
+[caches]
+  [caches.assets]
+    maxAge = 5000
+  [caches.getcsv]
+    maxAge = 5000
+  [caches.getjson]
+    maxAge = 5000
+  [caches.images]
+    maxAge = 5000
+  [caches.modules]
+    maxAge = 5000
+
+[params]
+  GitHubUser = 'spf14'

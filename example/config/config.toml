@@ -1,0 +1,12 @@
+baseURL = 'https://yoursite.example.com/'
+footnoteReturnLinkContents = '↩'
+title = 'My Hugo Site'
+[params]
+  AuthorName = 'Jon Doe'
+  GitHubUser = 'spf13'
+  ListOfFoo = ['foo1', 'foo2']
+  SidebarRecentLimit = 5
+  Subtitle = 'Hugo is Absurdly Fast!'
+  Debug = true
+[permalinks]
+  posts = '/:year/:month/:title/'

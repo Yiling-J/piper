@@ -1,0 +1,8 @@
+foo = "a"
+
+[foobar]
+foo = "b"
+bar = ["c", "d", "e"]
+
+[foobar.baz]
+xyz = "f"

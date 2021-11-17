@@ -1,0 +1,9 @@
+foo: a
+foobar:
+  foo: b
+  bar:
+    - c
+    - d
+    - e
+  baz:
+    xyz: f

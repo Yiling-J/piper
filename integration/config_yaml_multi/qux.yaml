@@ -1,0 +1,5 @@
+pp_imports:
+  - foo.yaml
+foofoo: k
+quux:
+  foo: j

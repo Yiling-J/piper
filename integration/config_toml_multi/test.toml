@@ -1,0 +1,6 @@
+pp_imports = ["base.toml", "foo.toml", "bar.toml", "qux.toml"]
+
+foo = "test"
+
+[foobar]
+foo = "test"

@@ -1,0 +1,29 @@
+{{ $currentNode := $.Name }}
+{{if eq $currentNode "Root"}}
+{{"//nolint"}}
+{{"package config"}}
+{{end}}
+
+    {{range .Children}}
+	{{if not .StructName}}
+	    {{if eq $currentNode "Root"}}
+	    const {{.FieldName}} = "{{.KeyName}}"
+	    {{end}}
+    {{else}}
+type {{.StructName}} struct {
+	{{range .Children}}
+	    {{.FieldName}} {{if .StructName}}{{.StructName}}{{else}}string{{end}}
+	{{end}}
+}
+    {{end}}
+
+    {{if .StructName}}
+    var {{.StructName | ToTitle}} = {{.StructName}}{
+    {{range .Children}}
+	{{.FieldName}}: {{if .StructName}}{{.StructName | ToTitle}}{{else}}"{{.KeyName}}"{{end}},
+    {{end}}
+    }
+    {{end}}
+    
+    {{template "config.tmpl" .}}
+{{end}}

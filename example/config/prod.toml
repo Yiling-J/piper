@@ -1,0 +1,18 @@
+pp_imports = ["dev.toml"]
+title = 'My Hugo Prod Site'
+
+[caches]
+  [caches.assets]
+    maxAge = 3000
+  [caches.getcsv]
+    maxAge = 3000
+  [caches.getjson]
+    maxAge = 3000
+  [caches.images]
+    maxAge = 3000
+  [caches.modules]
+    maxAge = 3000
+
+[params]
+  GitHubUser = 'spf15'
+  Debug = false
