@@ -7,12 +7,12 @@ If you are familiar with Django, this is how Django settings module looks like:
 └── settings
     ├── base.py
     ├── dev.py
-	├── stage.py
-	└── prod.py
+    ├── stage.py
+    └── prod.py
 ```
-dev will inherit from base, also stage will inherit from dev.
+`dev.py` will inherit from `base.py`, also `stage.py` will inherit from `dev.py`.
 
-Start Django with selected settings:
+Start Django with selected setting:
 ```shell
 export DJANGO_SETTINGS_MODULE=mysite.settings.prod
 django-admin runserver
@@ -32,8 +32,8 @@ I want to have similar experience with Viper, so here comes this wrapper:
 └── config
     ├── base.toml
     ├── dev.toml
-	├── stage.toml
-	└── prod.toml
+    ├── stage.toml
+    └── prod.toml
 ```
 This is how you access config using piper:
 
