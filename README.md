@@ -1,4 +1,4 @@
-# piper - viper wrapper with config inheritance and key generation
+# piper - Simple Wrapper For Viper
 
 ## Why
 If you are familiar with Django, this is how Django settings module looks like:
