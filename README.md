@@ -59,6 +59,8 @@ go get github.com/Yiling-J/piper/cmd
 ```
 ## Add Config Files
 Add your config files to your config folder, usually your config folder should be under project root folder.
+
+toml example, you can also use yaml or json.
 ```console {12-20}
 project
 └── config
@@ -68,6 +70,11 @@ project
     └── prod.toml
 
 ```
+To support inheritance, you need to add a special key to your config file called `pp_imports`
+```
+pp_imports = ["base.toml", "dev.toml"]
+```
+Piper will resolve that automatically.
 
 ## Config Key Generation
 Run code generation from the root directory of the project as follows:
