@@ -22,7 +22,16 @@ func main() {
 	if configPath == "" {
 		panic("empty config path")
 	}
-	dir := filepath.Dir(configPath)
+	fi, err := os.Stat(configPath)
+	if err != nil {
+		panic(err)
+	}
+	var dir string
+	if fi.IsDir() {
+		dir = configPath
+	} else {
+		dir = filepath.Dir(configPath)
+	}
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		panic(err)
