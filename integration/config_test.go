@@ -36,11 +36,29 @@ func assertConfig(t *testing.T) {
 	require.Equal(t, piper.GetStringSlice(configtm.Foobar.Bar), []string{"c", "d", "e"})
 }
 
+func assertIConfig(t *testing.T) {
+	// value from config test
+	require.Equal(t, piper.IGetString(configtm.Foo), "test")
+	// value from config test
+	require.Equal(t, piper.IGetString(configtm.Foobar.Foo), "test")
+	// value from config qux
+	require.Equal(t, piper.IGetString(configtm.Foofoo), "k")
+	// value from config qux
+	require.Equal(t, piper.IGetString(configtm.Quux.Foo), "j")
+	// value from config foo
+	require.Equal(t, piper.IGetString(configtm.Foobar.Qux.Xyz), "h")
+	// value from config bar
+	require.Equal(t, piper.IGetString(configtm.Barfoo), "m")
+	// value from config base
+	require.Equal(t, piper.IGetStringSlice(configtm.Foobar.Bar), []string{"c", "d", "e"})
+}
+
 func TestTomlMulti(t *testing.T) {
 	piper.Reset()
 	err := piper.Load("config_toml_multi/test.toml")
 	require.Nil(t, err)
 	assertConfig(t)
+	assertIConfig(t)
 }
 
 func TestTomlMultiEmbed(t *testing.T) {
@@ -55,6 +73,7 @@ func TestTomlMultiEmbed(t *testing.T) {
 	err = piper.Load("config_toml_multi/test.toml")
 	require.Nil(t, err)
 	assertConfig(t)
+	assertIConfig(t)
 }
 
 func TestTomlMultiEmbedOverride(t *testing.T) {

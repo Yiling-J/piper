@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/spf13/afero"
+	"github.com/spf13/cast"
 	"github.com/spf13/viper"
 )
 
@@ -54,6 +55,7 @@ type Piper struct {
 	fs       embed.FS
 	dir      string
 	imported []string
+	cache    map[string]interface{}
 }
 
 func Reset() {
@@ -231,6 +233,135 @@ func GetStringMapStringSlice(key string) map[string][]string {
 	return p.V.GetStringMapStringSlice(key)
 }
 
+// IGet
+func (p *Piper) IGet(key string) interface{} {
+	return p.cache[key]
+}
+
+func IGet(key string) interface{} {
+	return p.IGet(key)
+}
+
+func (p *Piper) IGetBool(key string) bool {
+	return cast.ToBool(p.IGet(key))
+}
+
+func IGetBool(key string) bool {
+	return p.IGetBool(key)
+}
+
+func (p *Piper) IGetDuration(key string) time.Duration {
+	return cast.ToDuration(p.IGet(key))
+}
+
+func IGetDuration(key string) time.Duration {
+	return p.IGetDuration(key)
+}
+
+func (p *Piper) IGetFloat64(key string) float64 {
+	return cast.ToFloat64(p.IGet(key))
+}
+
+func IGetFloat64(key string) float64 {
+	return p.IGetFloat64(key)
+}
+
+func (p *Piper) IGetInt(key string) int {
+	return cast.ToInt(p.IGet(key))
+}
+
+func IGetInt(key string) int {
+	return p.IGetInt(key)
+}
+
+func (p *Piper) IGetInt32(key string) int32 {
+	return cast.ToInt32(p.IGet(key))
+}
+
+func IGetInt32(key string) int32 {
+	return p.IGetInt32(key)
+}
+
+func (p *Piper) IGetInt64(key string) int64 {
+	return cast.ToInt64(p.IGet(key))
+}
+
+func IGetInt64(key string) int64 {
+	return p.IGetInt64(key)
+}
+
+func (p *Piper) IGetUint(key string) uint {
+	return cast.ToUint(p.IGet(key))
+}
+
+func IGetUint(key string) uint {
+	return p.IGetUint(key)
+}
+
+func (p *Piper) IGetUint32(key string) uint32 {
+	return p.V.GetUint32(key)
+}
+
+func IGetUint32(key string) uint32 {
+	return cast.ToUint32(p.IGet(key))
+}
+
+func (p *Piper) IGetUint64(key string) uint64 {
+	return cast.ToUint64(p.IGet(key))
+}
+
+func IGetUint64(key string) uint64 {
+	return p.IGetUint64(key)
+}
+
+func (p *Piper) IGetIntSlice(key string) []int {
+	return cast.ToIntSlice(p.IGet(key))
+}
+
+func IGetIntSlice(key string) []int {
+	return p.IGetIntSlice(key)
+}
+
+func (p *Piper) IGetString(key string) string {
+	return cast.ToString(p.IGet(key))
+}
+
+func IGetString(key string) string {
+	return p.IGetString(key)
+}
+
+func (p *Piper) IGetStringMap(key string) map[string]interface{} {
+	return cast.ToStringMap(p.IGet(key))
+}
+
+func IGetStringMap(key string) map[string]interface{} {
+	return p.IGetStringMap(key)
+}
+
+func (p *Piper) IGetStringSlice(key string) []string {
+	return cast.ToStringSlice(p.IGet(key))
+}
+
+func IGetStringSlice(key string) []string {
+	return p.IGetStringSlice(key)
+}
+
+func (p *Piper) IGetStringMapString(key string) map[string]string {
+	return cast.ToStringMapString(p.IGet(key))
+}
+
+func IGetStringMapString(key string) map[string]string {
+	return p.IGetStringMapString(key)
+}
+
+func (p *Piper) IGetStringMapStringSlice(key string) map[string][]string {
+	return cast.ToStringMapStringSlice(p.IGet(key))
+}
+
+func IGetStringMapStringSlice(key string) map[string][]string {
+	return p.IGetStringMapStringSlice(key)
+}
+
 func Load(name string) error {
 	return p.Load(name)
 }
@@ -296,6 +427,12 @@ func (p *Piper) Load(name string) error {
 	err = p.MergeInConfig()
 	if err != nil {
 		return err
+	}
+	// cache key/value
+	keys := p.V.AllKeys()
+	p.cache = make(map[string]interface{})
+	for _, k := range keys {
+		p.cache[k] = p.V.Get(k)
 	}
 
 	return nil
