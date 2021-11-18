@@ -42,4 +42,12 @@ func main() {
 	fmt.Println(piper.GetString(config.Build.Useresourcecachewhen))
 	// should be []string{"foo1", "foo2"}
 	fmt.Println(piper.GetStringSlice(config.Params.Listoffoo))
+
+	// embed example
+	piper.Reset()
+	piper.SetFS(configFS)
+	err = piper.Load("config/prod.toml")
+	if err != nil {
+		panic(err)
+	}
 }

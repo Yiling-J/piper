@@ -54,6 +54,9 @@ func main() {
 		}
 	}
 
-	generate(dir)
+	err = generate(dir)
+	if err != nil {
+		panic(err)
+	}
 
 }

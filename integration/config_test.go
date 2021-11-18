@@ -16,9 +16,6 @@ var configTomlMulti embed.FS
 //go:embed config_yaml_multi/*
 var configYamlMulti embed.FS
 
-//go:embed config_toml_cycle/*
-var configTomlCycle embed.FS
-
 func assertConfig(t *testing.T) {
 	// value from config test
 	require.Equal(t, piper.GetString(configtm.Foo), "test")
