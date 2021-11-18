@@ -126,3 +126,33 @@ func TestTomlCycle(t *testing.T) {
 	err := piper.Load("config_toml_cycle/d.toml")
 	require.NotNil(t, err)
 }
+
+func BenchmarkGet(b *testing.B) {
+	piper.Reset()
+	err := piper.Load("config_yaml_multi/test.yaml")
+	if err != nil {
+		panic(err)
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		r := piper.GetString(configtm.Foobar.Qux.Xyz)
+		if r != "h" {
+			panic("")
+		}
+	}
+}
+
+func BenchmarkIGet(b *testing.B) {
+	piper.Reset()
+	err := piper.Load("config_yaml_multi/test.yaml")
+	if err != nil {
+		panic(err)
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		r := piper.IGetString(configtm.Foobar.Qux.Xyz)
+		if r != "h" {
+			panic("")
+		}
+	}
+}
