@@ -33,7 +33,7 @@ author = settings.Author
 
 I want to have similar experience with Viper, so here comes this wrapper:
 
-```go
+```console {12-20}
 └── config
     ├── base.toml
     ├── dev.toml
@@ -59,7 +59,7 @@ go get github.com/Yiling-J/piper/cmd
 ```
 ## Add Config Files
 Add your config files to your config folder, usually your config folder should be under project root folder.
-```
+```console {12-20}
 project
 └── config
     ├── base.toml
@@ -79,13 +79,13 @@ Then piper will generate `config.go` under your config folder, include all your 
 Also you will see the config structure when pipe generating code.
 
 After code genertation, your config folder should look like:
-```
+```console {12-20}
 └── config
     ├── base.toml
     ├── dev.toml
     ├── stage.toml
     ├── prod.toml
-	└── config.go
+    └── config.go
 ```
 ## Use Piper
 
@@ -105,7 +105,7 @@ author = piper.GetString(config.Author)
 ```
 
 ### Strategy II
-copy config folder when you building docker image, so the true folder exists with your executable.
+copy config folder when you building docker image, so the true config folder exists with your executable.
 ```go
 import (
 	"github.com/Yiling-J/piper"
@@ -117,7 +117,7 @@ author = piper.GetString(config.Author)
 ```
 
 ### Strategy III
-Override when you build docker or deploy, for example using k8s config map.
+Override when you building docker image or deploy, eg: k8s ConfigMap replacement
 ```go
 import (
 	"github.com/Yiling-J/piper"
