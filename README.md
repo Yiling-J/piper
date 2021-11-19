@@ -109,6 +109,7 @@ import (
 //go:embed config/*
 var configFS embed.FS
 
+piper.SetFS(configFS)
 piper.Load("config/stage.toml")
 author := piper.GetString(config.Author)
 ```
@@ -125,6 +126,7 @@ import (
 var configFS embed.FS
 
 os.Setenv("SECRET", "qux")
+piper.SetFS(configFS)
 piper.Load("config/stage.toml")
 piper.V().AutomaticEnv()
 secret := piper.GetString(config.Secret)
@@ -155,6 +157,7 @@ var configFS embed.FS
 
 // "config/stage_with_secret.toml" is not in source code,
 // may come from docker build or k8s ConfigMap
+piper.SetFS(configFS)
 piper.Load("config/stage_with_secret.toml")
 author := piper.GetString(config.Author)
 ```
