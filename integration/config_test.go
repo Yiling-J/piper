@@ -124,6 +124,34 @@ func TestTomlCycle(t *testing.T) {
 	require.NotNil(t, err)
 }
 
+func TestMultiPiper(t *testing.T) {
+	piper.Reset()
+	piperA := piper.New()
+	piperB := piper.New()
+
+	err := piper.Load("config_toml_multi/test.toml")
+	require.Nil(t, err)
+	err = piperA.Load("config_toml_multi/base.toml")
+	require.Nil(t, err)
+	err = piperB.Load("config_toml_multi/foo.toml")
+	require.Nil(t, err)
+
+	// global
+	require.Equal(t, piper.GetString(configtm.Foo), "test")
+	// a
+	require.Equal(t, piperA.GetString(configtm.Foo), "a")
+	// b
+	require.Equal(t, piperB.GetString(configtm.Foo), "foofoo")
+
+	// global
+	require.Equal(t, piper.IGetString(configtm.Foo), "test")
+	// a
+	require.Equal(t, piperA.IGetString(configtm.Foo), "a")
+	// b
+	require.Equal(t, piperB.IGetString(configtm.Foo), "foofoo")
+
+}
+
 func BenchmarkGet(b *testing.B) {
 	piper.Reset()
 	err := piper.Load("config_yaml_multi/test.yaml")

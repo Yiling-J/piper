@@ -1,5 +1,6 @@
 foofoo = "g"
 barfoo = "l"
+foo = "foofoo"
 
 [foobar.qux]
 xyz = "h"
