@@ -110,10 +110,27 @@ import (
 var configFS embed.FS
 
 piper.Load("config/stage.toml")
-author = piper.GetString(config.Author)
+author := piper.GetString(config.Author)
 ```
 
-### Strategy II -  Copy config directory
+### Strategy II - Embed with Env
+embed your config folder into your code, single executable when you deploy, and replace secret with env.
+```go
+import (
+	"github.com/Yiling-J/piper"
+	"your_project/example/config"
+)
+
+//go:embed config/*
+var configFS embed.FS
+
+os.Setenv("SECRET", "qux")
+piper.Load("config/stage.toml")
+piper.V().AutomaticEnv()
+secret := piper.GetString(config.Secret)
+```
+
+### Strategy III -  Copy config directory
 copy config folder when building docker image, so the true config folder exists.
 ```go
 import (
@@ -122,10 +139,10 @@ import (
 )
 
 piper.Load("config/stage.toml")
-author = piper.GetString(config.Author)
+author := piper.GetString(config.Author)
 ```
 
-### Strategy III - Mix embed and copy directory
+### Strategy IV - Mix embed and copy directory
 Embed your config folder, but keep some secret keys in a real config file.
 ```go
 import (
@@ -136,9 +153,10 @@ import (
 //go:embed config/*
 var configFS embed.FS
 
-// "config/stage_with_secret.toml" is not in source code, may come from docker build or k8s ConfigMap
+// "config/stage_with_secret.toml" is not in source code,
+// may come from docker build or k8s ConfigMap
 piper.Load("config/stage_with_secret.toml")
-author = piper.GetString(config.Author)
+author := piper.GetString(config.Author)
 ```
 True directory will take precedence over embeded directory.
 
