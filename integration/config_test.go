@@ -152,7 +152,7 @@ func TestMultiPiper(t *testing.T) {
 
 }
 
-func TestEnvOverride(t *testing.T) {
+func TestEnvOverrideI(t *testing.T) {
 	piper.Reset()
 	err := piper.Load("config_toml_multi/test.toml")
 	require.Nil(t, err)
@@ -162,6 +162,18 @@ func TestEnvOverride(t *testing.T) {
 	require.Nil(t, err)
 	require.Equal(t, piper.GetString(configtm.Foo), "bar")
 	require.Equal(t, piper.IGetString(configtm.Foo), "test")
+}
+
+func TestEnvOverrideII(t *testing.T) {
+	piper.Reset()
+	piper.V().AutomaticEnv()
+	err := os.Setenv("FOO", "bar")
+	require.Nil(t, err)
+	err = piper.Load("config_toml_multi/test.toml")
+	require.Nil(t, err)
+
+	require.Equal(t, piper.GetString(configtm.Foo), "bar")
+	require.Equal(t, piper.IGetString(configtm.Foo), "bar")
 }
 
 func BenchmarkGet(b *testing.B) {

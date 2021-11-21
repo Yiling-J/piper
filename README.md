@@ -3,9 +3,10 @@
 ![Go Report Card](https://goreportcard.com/badge/github.com/yiling-j/piper?style=flat-square)
 
 - **Single Source of Truth**
-- **Code Generation, No Typo**
+- **Generated Key Structs, No Typo**
 - **Config Inheritance**
 - **Multiple Config Strategies Support**
+- **Cache For Better Performance**
 
 ## Why Piper
 If you are familiar with Django, this is how Django settings module looks like:
@@ -125,9 +126,12 @@ import (
 var configFS embed.FS
 
 os.Setenv("SECRET", "qux")
-piper.Load("config/stage.toml")
+// make sure turn on AutomaticEnv first then loading config,
+// this way the env vaiable is also cached, so IGet* methods can work properly
 piper.V().AutomaticEnv()
+piper.Load("config/stage.toml")
 secret := piper.GetString(config.Secret)
+
 ```
 
 ### Strategy III -  Copy config directory
