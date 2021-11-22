@@ -127,10 +127,9 @@ import (
 var configFS embed.FS
 
 os.Setenv("SECRET", "qux")
+piper.SetFS(configFS)
 // make sure turn on AutomaticEnv first then loading config,
 // this way the env vaiable is also cached, so IGet* methods can work properly
-piper.SetFS(configFS)
-piper.Load("config/stage.toml")
 piper.V().AutomaticEnv()
 piper.Load("config/stage.toml")
 secret := piper.GetString(config.Secret)
