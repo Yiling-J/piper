@@ -6,3 +6,12 @@ bar = ["c", "d", "e"]
 
 [foobar.baz]
 xyz = "f"
+
+[types]
+bool = true
+int = 1
+string = "apple"
+duration = "12s"
+float = 3.12
+int_slice = [1,2,3]
+string_slice = ["a", "b", "c"]

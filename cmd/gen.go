@@ -7,6 +7,8 @@ import (
 	"go/format"
 	"html/template"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 
@@ -115,4 +117,48 @@ func generate(dir string) error {
 		return err
 	}
 	return nil
+}
+
+func viperLoad(path string) (string, error) {
+	fi, err := os.Stat(path)
+	if err != nil {
+		return "", err
+	}
+	var dir string
+	if fi.IsDir() {
+		dir = path
+	} else {
+		dir = filepath.Dir(path)
+	}
+	files, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return "", err
+	}
+	viper.AddConfigPath(dir)
+	for _, file := range files {
+		fileName := file.Name()
+		ext := filepath.Ext(fileName)
+		if len(ext) < 2 {
+			continue
+		}
+		if !stringInSlice(ext[1:], viper.SupportedExts) {
+			continue
+		}
+
+		viper.SetConfigFile(dir + "/" + fileName)
+		err := viper.MergeInConfig()
+		if err != nil {
+			return "", err
+		}
+	}
+	return dir, nil
+}
+
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
 }

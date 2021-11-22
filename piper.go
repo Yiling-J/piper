@@ -201,36 +201,12 @@ func GetString(key string) string {
 	return p.V.GetString(key)
 }
 
-func (p *Piper) GetStringMap(key string) map[string]interface{} {
-	return p.V.GetStringMap(key)
-}
-
-func GetStringMap(key string) map[string]interface{} {
-	return p.V.GetStringMap(key)
-}
-
 func (p *Piper) GetStringSlice(key string) []string {
 	return p.V.GetStringSlice(key)
 }
 
 func GetStringSlice(key string) []string {
 	return p.V.GetStringSlice(key)
-}
-
-func (p *Piper) GetStringMapString(key string) map[string]string {
-	return p.V.GetStringMapString(key)
-}
-
-func GetStringMapString(key string) map[string]string {
-	return p.V.GetStringMapString(key)
-}
-
-func (p *Piper) GetStringMapStringSlice(key string) map[string][]string {
-	return p.V.GetStringMapStringSlice(key)
-}
-
-func GetStringMapStringSlice(key string) map[string][]string {
-	return p.V.GetStringMapStringSlice(key)
 }
 
 // IGet
@@ -330,36 +306,12 @@ func IGetString(key string) string {
 	return p.IGetString(key)
 }
 
-func (p *Piper) IGetStringMap(key string) map[string]interface{} {
-	return cast.ToStringMap(p.IGet(key))
-}
-
-func IGetStringMap(key string) map[string]interface{} {
-	return p.IGetStringMap(key)
-}
-
 func (p *Piper) IGetStringSlice(key string) []string {
 	return cast.ToStringSlice(p.IGet(key))
 }
 
 func IGetStringSlice(key string) []string {
 	return p.IGetStringSlice(key)
-}
-
-func (p *Piper) IGetStringMapString(key string) map[string]string {
-	return cast.ToStringMapString(p.IGet(key))
-}
-
-func IGetStringMapString(key string) map[string]string {
-	return p.IGetStringMapString(key)
-}
-
-func (p *Piper) IGetStringMapStringSlice(key string) map[string][]string {
-	return cast.ToStringMapStringSlice(p.IGet(key))
-}
-
-func IGetStringMapStringSlice(key string) map[string][]string {
-	return p.IGetStringMapStringSlice(key)
 }
 
 func Load(name string) error {
