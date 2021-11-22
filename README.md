@@ -78,6 +78,7 @@ To support inheritance, you need to add a special key to your config file called
 pp_imports = ["base.toml", "dev.toml"]
 ```
 Piper will resolve that automatically. Also order matters here, this line means import `base.toml` first, then import `dev.toml` and merge.
+After all `pp_imports` merged, import current file.
 
 ## Config Key Generation
 Run code generation from the root directory of the project as follows:
@@ -86,7 +87,7 @@ go run github.com/Yiling-J/piper/cmd your_config_folder
 ```
 In this step piper will load all files in your config folder and merge them together.
 Then piper will generate `config.go` under your config folder, include all your config keys.
-Also you will see the config structure when pipe generating code.
+Also you will see the config structure when piper generating code.
 
 After code genertation, your config folder should look like:
 ```console {12-20}
