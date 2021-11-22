@@ -77,7 +77,7 @@ To support inheritance, you need to add a special key to your config file called
 ```
 pp_imports = ["base.toml", "dev.toml"]
 ```
-Piper will resolve that automatically.
+Piper will resolve that automatically. Also order matters here, this line means import `base.toml` first, then import `dev.toml` and merge.
 
 ## Config Key Generation
 Run code generation from the root directory of the project as follows:
